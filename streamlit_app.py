@@ -8,7 +8,7 @@ import os
 import json
 
 st.set_page_config(page_title="Deep Football Chat", layout="wide")
-st.title("🧠 DeepSeek Football Analysis")
+st.title("🧠 Jokey Football Analysis")
 
 # قراءة prompt من URL
 query_params = st.query_params
