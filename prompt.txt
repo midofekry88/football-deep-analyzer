@@ -1,0 +1,178 @@
+Objective:
+
+Analyze the next match for the two teams against each other using a structured dataset where each row represents a single team, and each match is represented by two rows (one for each team). Use this dataset to predict:
+
+1. Expected Goals – Team 1
+
+
+2. Expected Goals – Team 2
+
+
+3. Total Match Goals
+
+
+4. Double Chance (Win or Draw)
+
+
+5. Total Match Fouls
+
+
+6. Total Corners
+
+
+
+⸻
+
+🧩 Dataset Structure:
+* Each row = one team from one match
+* Columns = raw and calculated features (e.g. xG, SCA, SaveRate…)
+* To build predictions per match, combine Team 1 and Team 2 rows into a single record (via join or merge) where each feature becomes suffixed (e.g. xG_Team1, xG_Team2)
+
+⸻
+
+✅ Prediction Targets and Features:
+
+1. ⚽ Expected Goals – Team 1
+
+Target Column: ExpectedGoals_Team1
+Features (Team 1 only):
+* xG, Shots (Standard_Sh), Shots on Target (Standard_SoT)
+* xA, SCA, GCA, Conversion Rate, Finishing Index
+* GoalsPerShot, GoalsPerShotOnTarget
+* Touches in Final 3rd, Passes to Final 3rd, Passes into Box
+* Key Passes, Through Balls
+* Expected_Threat_Proxy, Progressive Passes, Progressive Carries
+* Carries into Penalty Area, Dribble Success %
+* Crosses, Touches, Possession %, Shot Distance
+* Big Chances Created, BigChancesMissed, BigChanceEfficiency
+* NonPenaltyGoals, Penalties Scored, PenaltyConversion
+
+
+---
+
+2. ⚽ Expected Goals – Team 2
+
+Target Column: ExpectedGoals_Team2
+Same features as above but from Team 2 row.
+
+
+---
+
+3. 🎯 Total Match Goals
+
+Target Column: TotalGoals
+Features:
+* ExpectedGoals_Team1, ExpectedGoals_Team2
+* xGA (both teams), Shots Against, SaveRate
+* DefensiveActionCount, Adjusted_Defensive_Pressure
+* FinalScore difference (Team1 - Team2)
+
+
+---
+
+4. 🔁 Double Chance (Win or Draw)
+
+Target Column: DoubleChanceWinner (categorical: Team1 or Team2)
+Features:
+* FinalScore (Team1 vs Team2), xG, xGA, SCA, GCA
+* Expected_Threat_Proxy, SaveRate
+* Defensive stats: Tackles, Interceptions
+* Possession %, Pass Success Rate
+* Recoveries, Discipline Index
+
+
+---
+
+5. 🚫 Total Match Fouls
+
+Target Column: TotalFouls
+Features:
+* Fouls, Yellow/Red Cards
+* DisciplineIndex
+* Tackles, Interceptions, Challenges_Tkl%
+* Possession %
+* Take-Ons, Dispossessed
+
+
+---
+
+6. 🏁 Total Corners
+
+Target Column: TotalCorners
+Features:
+* Crosses, Passes into Box
+* Carries into Final Third, Touches in Final Third
+* Shots, Shots on Target
+* GCA, Key Passes from wide
+* Progressive Carries
+
+
+---
+
+📋 After completing the predictions, present the results as a list of bullet points. , As the following format:
+
+
+1. Expected Goals – Team 1
+Provide the predicted value
+
+Explain the key offensive/defensive factors for both teams that influenced this prediction
+
+→ Recommended Bet: (Over/Under based on real betting market)
+
+→ Why: Justify the choice
+
+→ Safer Option:
+
+→ Why it’s safer:
+
+
+2. Expected Goals – Team 2
+Provide the predicted value
+
+Explain the key offensive/defensive factors for both teams that influenced this prediction
+
+→ Recommended Bet: (Over/Under based on real betting market lines)
+
+→ Why: Justify the choice
+
+→ Safer Option:
+
+→ Why it’s safer: 
+
+
+3. Total Match Goals
+Provide the total predicted match goals
+
+Explain the reasoning
+
+→ Recommended Bet:
+
+→ Why:
+
+→ Safer Option:
+
+→ Why it’s safer:
+
+
+4..Asian Handicap 
+Recommend the most suitable Asian Handicap  line
+
+→ Recommended Bet:
+
+→ Why:
+
+→ Safer Option:
+
+→ Why it’s safer:
+
+
+5. Double Chance
+Based on the likelihood of one team avoiding defeat
+
+→ Recommended Bet:
+
+→ Why:
+
+→ Safer Option: (only if needed)
+
+→ Why it’s safer:

@@ -16,8 +16,14 @@ prompt_from_url = query_params.get("prompt", [""])[0]
 # تحميل ملف Excel
 uploaded_file = st.file_uploader("📤 Upload Excel or CSV", type=["xlsx", "csv"])
 
-# إدخال البرومبت يدويًا أو من URL
-user_prompt = st.text_area("📝 Prompt", prompt_from_url or "Analyze this match tactically")
+# قراءة البرومبت من ملف خارجي
+try:
+    with open("prompt.txt", "r", encoding="utf-8") as f:
+        default_prompt = f.read()
+except:
+    default_prompt = "Analyze this match tactically"
+
+user_prompt = st.text_area("📝 Prompt", default_prompt)
 
 if st.button("🔍 Analyze"):
     if uploaded_file and user_prompt.strip():
