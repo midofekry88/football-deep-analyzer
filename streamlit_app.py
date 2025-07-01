@@ -5,6 +5,7 @@ import pandas as pd
 import requests
 import tempfile
 import os
+import json
 
 st.set_page_config(page_title="Deep Football Chat", layout="wide")
 st.title("🧠 DeepSeek Football Analysis")
@@ -56,16 +57,38 @@ User Request:
 
                 payload = {
                     "model": "deepseek/deepseek-r1:free",
-                    "messages": [{"role": "user", "content": full_prompt}]
+                    "messages": [{"role": "user", "content": full_prompt}],
+                    "stream": True
                 }
 
-                response = requests.post("https://openrouter.ai/api/v1/chat/completions",
-                                         headers=headers, json=payload)
+                # بدء الـ Streaming Response
+                response = requests.post(
+                    "https://openrouter.ai/api/v1/chat/completions",
+                    headers=headers,
+                    json=payload,
+                    stream=True
+                )
 
                 if response.status_code == 200:
-                    reply = response.json()['choices'][0]['message']['content']
-                    st.success("✅ Analysis Completed")
-                    st.markdown(reply)
+                    st.success("✅ Streaming started...")
+                    full_reply = ""
+                    placeholder = st.empty()
+
+                    for line in response.iter_lines():
+                        if line:
+                            decoded_line = line.decode("utf-8")
+                            if decoded_line.startswith("data: "):
+                                try:
+                                    data_json = json.loads(decoded_line[6:])
+                                    delta = data_json["choices"][0]["delta"]
+                                    content = delta.get("content", "")
+                                    full_reply += content
+                                    placeholder.markdown(full_reply + "▌")
+                                except:
+                                    pass
+
+                    placeholder.markdown(full_reply)
+
                 else:
                     st.error(f"API Error: {response.status_code} - {response.text}")
 
