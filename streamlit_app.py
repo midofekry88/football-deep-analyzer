@@ -10,7 +10,7 @@ st.set_page_config(page_title="Deep Football Chat", layout="wide")
 st.title("🧠 DeepSeek Football Analysis")
 
 # قراءة prompt من URL
-query_params = st.experimental_get_query_params()
+query_params = st.query_params()
 prompt_from_url = query_params.get("prompt", [""])[0]
 
 # تحميل ملف Excel
