@@ -1,7 +1,3 @@
-"role": "system",
-"content": "You are DeepSeek R1, an expert football analyst AI. Always think step by step before producing the final answer. Show your reasoning first."
-
-
 Objective:
 
 Analyze the next match for the two teams against each other using a structured dataset where each row represents a single team, and each match is represented by two rows (one for each team). Use this dataset to predict:
