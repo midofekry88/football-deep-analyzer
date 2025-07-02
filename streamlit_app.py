@@ -94,10 +94,19 @@ User Request:
 
 
                     # توليد PDF من التحليل
+
+                    # إعداد خط يدعم العربية والرموز (DejaVuSans)
+                    import urllib.request
+                    font_path = os.path.join(tempfile.gettempdir(), "DejaVuSans.ttf")
+                    if not os.path.exists(font_path):
+                        url = "https://github.com/dejavu-fonts/dejavu-fonts/raw/master/ttf/DejaVuSans.ttf"
+                        urllib.request.urlretrieve(url, font_path)
+
                     pdf = FPDF()
                     pdf.add_page()
                     pdf.set_auto_page_break(auto=True, margin=15)
-                    pdf.set_font("Arial", size=12)
+                    pdf.add_font("DejaVu", '', font_path, uni=True)
+                    pdf.set_font("DejaVu", size=12)
                     for line in full_reply.split('\n'):
                         pdf.multi_cell(0, 10, line)
 
