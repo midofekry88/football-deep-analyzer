@@ -6,8 +6,11 @@ import requests
 import tempfile
 import os
 import json
+from fpdf import FPDF
+from io import BytesIO
 
-st.set_page_config(page_title="Deep Football Chat", layout="wide")
+
+st.set_page_config(page_title="Jokey Football Chat", layout="wide")
 st.title("🧠 Jokey Football Analysis")
 
 # قراءة prompt من URL
@@ -89,6 +92,26 @@ User Request:
 
                     placeholder.markdown(full_reply)
 
+
+                    # توليد PDF من التحليل
+                    pdf = FPDF()
+                    pdf.add_page()
+                    pdf.set_auto_page_break(auto=True, margin=15)
+                    pdf.set_font("Arial", size=12)
+                    for line in full_reply.split('\n'):
+                        pdf.multi_cell(0, 10, line)
+
+                    pdf_buffer = BytesIO()
+                    pdf.output(pdf_buffer)
+                    pdf_buffer.seek(0)
+
+                    # زر تحميل PDF
+                    st.download_button(
+                    label="📥 Download Analysis as PDF",
+                    data=pdf_buffer,
+                    file_name=uploaded_file.name.rsplit('.', 1)[0] + "__analysis.pdf",
+                    mime="application/pdf"
+)
                 else:
                     st.error(f"API Error: {response.status_code} - {response.text}")
 
