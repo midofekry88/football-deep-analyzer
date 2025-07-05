@@ -82,6 +82,7 @@ User Request:
                             decoded_line = line.decode("utf-8")
                             if decoded_line.startswith("data: "):
                                 try:
+                                    print("DEBUG: Received line =>", decoded_line)
                                     data_json = json.loads(decoded_line[6:])
                                     choices = data_json.get("choices", [])
                                     if choices and "delta" in choices[0]:
