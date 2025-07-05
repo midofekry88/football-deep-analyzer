@@ -97,10 +97,7 @@ User Request:
 
                     # إعداد خط يدعم العربية والرموز (DejaVuSans)
                     import urllib.request
-                    font_path = os.path.join(tempfile.gettempdir(), "DejaVuSans.ttf")
-                    if not os.path.exists(font_path):
-                        url = "https://github.com/dejavu-fonts/dejavu-fonts/raw/master/ttf/DejaVuSans.ttf"
-                        urllib.request.urlretrieve(url, font_path)
+                    font_path = "fonts/DejaVuSans.ttf"    
 
                     pdf = FPDF()
                     pdf.add_page()
