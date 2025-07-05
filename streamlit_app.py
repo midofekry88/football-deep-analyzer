@@ -83,7 +83,13 @@ User Request:
                             if decoded_line.startswith("data: "):
                                 try:
                                     data_json = json.loads(decoded_line[6:])
-                                    delta = data_json["choices"][0]["delta"]
+                                    choices = data_json.get("choices", [])
+                                    if choices and "delta" in choices[0]:
+                                        delta = choices[0]["delta"]
+                                        content = delta.get("content", "")
+                                        full_reply += content
+                                        placeholder.markdown(full_reply + "▌")
+
                                     content = delta.get("content", "")
                                     full_reply += content
                                     placeholder.markdown(full_reply + "▌")
