@@ -6,11 +6,8 @@ import requests
 import tempfile
 import os
 import json
-from fpdf import FPDF
-from io import BytesIO
 
-
-st.set_page_config(page_title="Jokey Football Chat", layout="wide")
+st.set_page_config(page_title="Deep Football Chat", layout="wide")
 st.title("🧠 Jokey Football Analysis")
 
 # قراءة prompt من URL
@@ -82,15 +79,8 @@ User Request:
                             decoded_line = line.decode("utf-8")
                             if decoded_line.startswith("data: "):
                                 try:
-                                    print("DEBUG: Received line =>", decoded_line)
                                     data_json = json.loads(decoded_line[6:])
-                                    choices = data_json.get("choices", [])
-                                    if choices and "delta" in choices[0]:
-                                        delta = choices[0]["delta"]
-                                        content = delta.get("content", "")
-                                        full_reply += content
-                                        placeholder.markdown(full_reply + "▌")
-
+                                    delta = data_json["choices"][0]["delta"]
                                     content = delta.get("content", "")
                                     full_reply += content
                                     placeholder.markdown(full_reply + "▌")
@@ -99,29 +89,6 @@ User Request:
 
                     placeholder.markdown(full_reply)
 
-                    # توليد PDF من التحليل باستخدام خط محلي
-                    font_path = "fonts/DejaVuSans.ttf"
-
-                    pdf = FPDF()
-                    pdf.add_page()
-                    pdf.set_auto_page_break(auto=True, margin=15)
-                    pdf.add_font("DejaVu", '', font_path, uni=True)
-                    pdf.set_font("DejaVu", size=12)
-
-                    for line in full_reply.split('\n'):
-                        pdf.multi_cell(0, 10, line)
-
-                    pdf_buffer = BytesIO()
-                    pdf.output(pdf_buffer)
-                    pdf_buffer.seek(0)
-
-                    # زر تحميل PDF
-                    st.download_button(
-                        label="📥 Download Analysis as PDF",
-                        data=pdf_buffer,
-                        file_name=uploaded_file.name.rsplit('.', 1)[0] + "__analysis.pdf",
-                        mime="application/pdf"
-                    )
                 else:
                     st.error(f"API Error: {response.status_code} - {response.text}")
 
