@@ -92,18 +92,15 @@ User Request:
 
                     placeholder.markdown(full_reply)
 
-
-                    # توليد PDF من التحليل
-
-                    # إعداد خط يدعم العربية والرموز (DejaVuSans)
-                    import urllib.request
-                    font_path = "fonts/DejaVuSans.ttf"    
+                    # توليد PDF من التحليل باستخدام خط محلي
+                    font_path = "fonts/DejaVuSans.ttf"
 
                     pdf = FPDF()
                     pdf.add_page()
                     pdf.set_auto_page_break(auto=True, margin=15)
                     pdf.add_font("DejaVu", '', font_path, uni=True)
                     pdf.set_font("DejaVu", size=12)
+
                     for line in full_reply.split('\n'):
                         pdf.multi_cell(0, 10, line)
 
@@ -113,11 +110,11 @@ User Request:
 
                     # زر تحميل PDF
                     st.download_button(
-                    label="📥 Download Analysis as PDF",
-                    data=pdf_buffer,
-                    file_name=uploaded_file.name.rsplit('.', 1)[0] + "__analysis.pdf",
-                    mime="application/pdf"
-)
+                        label="📥 Download Analysis as PDF",
+                        data=pdf_buffer,
+                        file_name=uploaded_file.name.rsplit('.', 1)[0] + "__analysis.pdf",
+                        mime="application/pdf"
+                    )
                 else:
                     st.error(f"API Error: {response.status_code} - {response.text}")
 
