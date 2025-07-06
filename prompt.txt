@@ -14,13 +14,6 @@ Analyze the next match for the two teams against each other using a structured d
 4. Double Chance (Win or Draw)
 
 
-5. Total Match Fouls
-
-
-6. Total Corners
-
-
-
 ⸻
 
 🧩 Dataset Structure:
